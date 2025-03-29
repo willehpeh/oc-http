@@ -3,6 +3,7 @@ import { HousingService } from '../../services/housing.service';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { PropertyFeaturesComponent } from './property-features/property-features.component';
 import { PropertySpecsComponent } from './property-specs/property-specs.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-housing-detail',
@@ -10,7 +11,8 @@ import { PropertySpecsComponent } from './property-specs/property-specs.componen
     AsyncPipe,
     CurrencyPipe,
     PropertyFeaturesComponent,
-    PropertySpecsComponent
+    PropertySpecsComponent,
+    RouterLink
   ],
   template: `
 		@if (housingProperty() | async; as property) {
@@ -35,7 +37,7 @@ import { PropertySpecsComponent } from './property-specs/property-specs.componen
 
 					<app-property-features [features]="property.features"/>
 
-					<a href="make-offer.html" class="make-offer-button">Make an Offer</a>
+					<a routerLink="make-offer" class="make-offer-button">Make an Offer</a>
 				</div>
 			</main>
 		}
