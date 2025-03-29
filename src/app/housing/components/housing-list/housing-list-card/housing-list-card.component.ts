@@ -1,11 +1,13 @@
 import { Component, input } from '@angular/core';
 import { HousingPropertyPreview } from '../../../models/housing-property';
 import { CurrencyPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-housing-list-card',
   imports: [
-    CurrencyPipe
+    CurrencyPipe,
+    RouterLink
   ],
   template: `
 		@let property = propertyPreview();
@@ -13,7 +15,7 @@ import { CurrencyPipe } from '@angular/common';
 			@if (property.offerMade) {
 				<div class="offer-made-banner">Offer Made</div>
 			}
-			<a href="property.html" class="property-link">
+			<a [routerLink]="property.id" class="property-link">
 				<div class="property-image">
 					<img [src]="property.thumbnailUrl"
 							 [alt]="property.title">
