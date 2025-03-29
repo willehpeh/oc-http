@@ -1,0 +1,75 @@
+.property-card {
+  background-color: var(--surface-light);
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.property-card:hover {
+  transform: translateY(-4px);
+}
+
+.property-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 1.5rem;
+}
+
+.property-image {
+  margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+
+.property-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.property-card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--on-background);
+}
+
+.property-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.property-details span {
+  font-size: 0.9rem;
+  color: var(--on-surface);
+}
+
+.property-details .price {
+  grid-column: 1 / -1;
+  color: var(--secondary);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.property-details .surface,
+.property-details .city {
+  color: var(--on-surface);
+}
+
+.offer-made-banner {
+  position: absolute;
+  top: 1.5rem;
+  right: -2rem;
+  background-color: var(--primary);
+  color: var(--background);
+  padding: 0.5rem 2rem;
+  transform: rotate(45deg);
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}

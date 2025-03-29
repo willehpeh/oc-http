@@ -13,7 +13,7 @@ import { HousingService } from '../../services/housing.service';
 		<main class="property-list">
 			<div class="property-grid">
 				@for (preview of housingPropertyPreviews$ | async; track preview.id) {
-          <app-housing-list-card/>
+          <app-housing-list-card [propertyPreview]="preview"/>
 				}
       </div>
     </main>

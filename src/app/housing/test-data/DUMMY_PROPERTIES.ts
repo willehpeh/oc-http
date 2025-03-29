@@ -4,7 +4,7 @@ export const DUMMY_PROPERTIES: HousingPropertyWithDetails[] = [
   {
     id: 'ce9287ca-81a6-4f6c-abf3-43b65587e04b',
     title: 'Modern Villa with Pool',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=600&h=400"',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=600&h=400',
     price: 1_200_000,
     surface: 350,
     city: 'Neuilly-sur-Seine',
@@ -25,10 +25,10 @@ export const DUMMY_PROPERTIES: HousingPropertyWithDetails[] = [
   {
     id: '3693430d-236b-4998-8e05-034d52e29985',
     title: 'Cozy Cottage in the Woods',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1561153796-99817461090e?auto=format&fit=crop&q=80&w=600&h=400"',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=600&h=400',
     price: 450_000,
     surface: 180,
-    city: 'Saint-Germain-en-Laye',
+    city: 'Saint Tropez',
     offerMade: false,
     bedrooms: 3,
     bathrooms: 2,
@@ -46,7 +46,7 @@ export const DUMMY_PROPERTIES: HousingPropertyWithDetails[] = [
   {
     id: '22907677-3321-444d-9772-9a69a0017405',
     title: 'Attractive Apartment in the City',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1561153796-99817461090e?auto=format&fit=crop&q=80&w=600&h=400"',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=600&h=400',
     price: 2_400_000,
     surface: 400,
     city: 'Paris',
@@ -67,7 +67,7 @@ export const DUMMY_PROPERTIES: HousingPropertyWithDetails[] = [
   {
     id: '44136138-0120-4752-8669-a71502306030',
     title: 'Luxury Penthouse in the City',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=600&h=400"',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=600&h=400',
     price: 1_800_000,
     surface: 400,
     city: 'Paris',
