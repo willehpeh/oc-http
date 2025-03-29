@@ -12,6 +12,7 @@ export type HousingPropertyDetails = {
   bedrooms: number;
   bathrooms: number;
   description: string;
+  fullImageUrl: string;
   features: string[];
 }
 
