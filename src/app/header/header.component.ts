@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { HeaderLinksComponent } from './header-links/header-links.component';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [
+    HeaderLinksComponent
+  ],
   template: `
 		<header class="header">
 			<div class="header-content">
@@ -16,11 +19,7 @@ import { Component } from '@angular/core';
 						<span class="tagline">Your Home, Simplified</span>
 					</div>
 				</a>
-				<nav>
-					<a href="#" class="active">Properties</a>
-					<a href="#">About</a>
-					<a href="#">Contact</a>
-				</nav>
+				<app-header-links/>
 			</div>
 		</header>
   `,
@@ -67,23 +66,6 @@ import { Component } from '@angular/core';
       font-size: 0.875rem;
       color: var(--on-surface);
       font-weight: 400;
-    }
-
-    nav {
-      display: flex;
-      gap: 2rem;
-    }
-
-    a {
-      color: var(--on-surface);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    a:hover,
-    a.active {
-      color: var(--primary);
     }
   `
 })
