@@ -1,12 +1,16 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { HousingService } from '../../services/housing.service';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
+import { PropertyFeaturesComponent } from './property-features/property-features.component';
+import { PropertySpecsComponent } from './property-specs/property-specs.component';
 
 @Component({
   selector: 'app-housing-detail',
   imports: [
     AsyncPipe,
-    CurrencyPipe
+    CurrencyPipe,
+    PropertyFeaturesComponent,
+    PropertySpecsComponent
   ],
   template: `
 		@if (housingProperty() | async; as property) {
@@ -22,38 +26,14 @@ import { AsyncPipe, CurrencyPipe } from '@angular/common';
 						<p class="price">{{ property.price | currency: 'EUR' : 'symbol' : '4.0-0' }}</p>
 					</div>
 
-					<div class="property-specs">
-						<div class="spec-item">
-							<span class="label">Surface</span>
-							<span class="value">{{ property.surface }}m²</span>
-						</div>
-						<div class="spec-item">
-							<span class="label">Bedrooms</span>
-							<span class="value">{{ property.bedrooms }}</span>
-						</div>
-						<div class="spec-item">
-							<span class="label">Bathrooms</span>
-							<span class="value">{{ property.bathrooms }}</span>
-						</div>
-						<div class="spec-item">
-							<span class="label">Location</span>
-							<span class="value">{{ property.city }}</span>
-						</div>
-					</div>
+					<app-property-specs [property]="property"/>
 
 					<div class="property-description">
 						<h2>Description</h2>
 						<p>{{ property.description }}</p>
 					</div>
 
-					<div class="property-features">
-						<h2>Features</h2>
-						<ul>
-							@for (feature of property.features; track feature) {
-                <li>{{ feature }}</li>
-							}
-						</ul>
-					</div>
+					<app-property-features [features]="property.features"/>
 
 					<a href="make-offer.html" class="make-offer-button">Make an Offer</a>
 				</div>
