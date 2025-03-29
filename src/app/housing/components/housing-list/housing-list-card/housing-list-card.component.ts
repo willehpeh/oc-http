@@ -1,9 +1,12 @@
 import { Component, input } from '@angular/core';
 import { HousingPropertyPreview } from '../../../models/housing-property';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-housing-list-card',
-  imports: [],
+  imports: [
+    CurrencyPipe
+  ],
   template: `
 		@let property = propertyPreview();
 		<article class="property-card">
@@ -17,8 +20,8 @@ import { HousingPropertyPreview } from '../../../models/housing-property';
 				</div>
 				<h2>{{ property.title }}</h2>
 				<div class="property-details">
-					<span class="price">{{ property.price }}</span>
-					<span class="surface">{{ property.surface }} m²</span>
+					<span class="price">{{ property.price | currency: 'EUR' : 'symbol' : '4.0-0' }}</span>
+					<span class="surface">{{ property.surface }}m²</span>
 					<span class="city">{{ property.city }}</span>
 				</div>
 			</a>
