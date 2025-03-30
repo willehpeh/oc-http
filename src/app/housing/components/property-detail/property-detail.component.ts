@@ -36,10 +36,7 @@ import { BackButtonComponent } from '../back-button/back-button.component';
 
 					<app-property-specs [property]="property"/>
 
-					<div class="property-description">
-						<h2>Description</h2>
-						<p>{{ property.description }}</p>
-					</div>
+					
 
 					<app-property-features [features]="property.features"/>
 

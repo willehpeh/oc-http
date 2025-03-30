@@ -23,6 +23,10 @@ import { HousingPropertyWithDetails } from '../../../models/housing-property';
 				<span class="value">{{ property().city }}</span>
 			</div>
 		</div>
+		<div class="property-description">
+			<h2>Description</h2>
+			<p>{{ property().description }}</p>
+		</div>
   `,
   styleUrls: ['./property-specs.component.scss']
 })

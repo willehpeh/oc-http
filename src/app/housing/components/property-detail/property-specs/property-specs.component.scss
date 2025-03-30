@@ -24,3 +24,20 @@
   font-size: 1.2rem;
   font-weight: 500;
 }
+
+.property-description {
+  margin-bottom: 3rem;
+  white-space: pre-line;
+}
+
+.property-description h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.property-description p {
+  color: var(--on-surface);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
