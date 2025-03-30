@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-header-brand',
   imports: [],
   template: `
-		<a href="/public" class="header-brand">
+		<a href="/housing" class="header-brand">
 			<svg class="header-logo" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M16 2L2 10L16 18L30 10L16 2Z" fill="#BB86FC"/>
 				<path d="M16 20L2 12V26L16 30L30 26V12L16 20Z" fill="#03DAC6"/>
