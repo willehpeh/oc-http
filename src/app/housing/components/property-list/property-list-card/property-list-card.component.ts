@@ -4,7 +4,7 @@ import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-housing-list-card',
+  selector: 'app-property-list-card',
   imports: [
     CurrencyPipe,
     RouterLink
@@ -29,8 +29,8 @@ import { RouterLink } from '@angular/router';
 			</a>
 		</article>
   `,
-  styleUrls: ['./housing-list-card.component.scss']
+  styleUrls: ['./property-list-card.component.scss']
 })
-export class HousingListCardComponent {
+export class PropertyListCardComponent {
   propertyPreview = input.required<HousingPropertyPreview>();
 }

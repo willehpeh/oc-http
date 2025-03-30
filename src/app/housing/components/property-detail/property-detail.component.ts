@@ -6,7 +6,7 @@ import { PropertySpecsComponent } from './property-specs/property-specs.componen
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-housing-detail',
+  selector: 'app-property-detail',
   imports: [
     AsyncPipe,
     CurrencyPipe,
@@ -42,9 +42,9 @@ import { RouterLink } from '@angular/router';
 			</main>
 		}
   `,
-  styleUrls: ['./housing-detail.component.scss'],
+  styleUrls: ['./property-detail.component.scss'],
 })
-export class HousingDetailComponent {
+export class PropertyDetailComponent {
   private housingService = inject(HousingService);
   id = input.required<string>();
   housingProperty = computed(() => this.housingService.getHousingProperty(this.id()));
