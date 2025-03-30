@@ -1,11 +1,11 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { HousingService } from '../../services/housing.service';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
-import { Router } from '@angular/router';
 import { filter, switchMap, tap } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ModalService } from '../../../layout/services/modal.service';
 import { OfferLimitReachedModalComponent } from './offer-limit-reached-modal/offer-limit-reached-modal.component';
+import { OfferSubmittedModalComponent } from './offer-submitted-modal/offer-submitted-modal.component';
 
 @Component({
   selector: 'app-make-offer',
@@ -13,7 +13,8 @@ import { OfferLimitReachedModalComponent } from './offer-limit-reached-modal/off
     AsyncPipe,
     CurrencyPipe,
     FormsModule,
-    OfferLimitReachedModalComponent
+    OfferLimitReachedModalComponent,
+    OfferSubmittedModalComponent
   ],
   template: `
 		@if (propertyPreview() | async; as property) {
@@ -62,6 +63,9 @@ import { OfferLimitReachedModalComponent } from './offer-limit-reached-modal/off
 			@if (offerLimitReachedModalVisible()) {
         <app-offer-limit-reached-modal/>
 			}
+      @if (offerSubmittedModalVisible()) {
+        <app-offer-submitted-modal/>
+      }
 		}
   `,
   styleUrls: ['./make-offer.component.scss']
@@ -69,10 +73,10 @@ import { OfferLimitReachedModalComponent } from './offer-limit-reached-modal/off
 export class MakeOfferComponent {
   private housingService = inject(HousingService);
   private modalService = inject(ModalService);
-  private router = inject(Router);
   id = input.required<string>();
   propertyPreview = computed(() => this.housingService.getHousingProperty(this.id()));
   offerLimitReachedModalVisible = this.modalService.offerLimitReachedModalVisible;
+  offerSubmittedModalVisible = this.modalService.offerSubmittedModalVisible;
 
   onSubmitOffer(): void {
     this.housingService.offerLimitReached(this.id()).pipe(
@@ -83,7 +87,7 @@ export class MakeOfferComponent {
       }),
       filter(limitReached => !limitReached),
       switchMap(() => this.housingService.makeOffer(this.id())),
-      tap(() => this.router.navigateByUrl('/housing'))
+      tap(() => this.modalService.showOfferSubmittedModalThenNavigate())
     ).subscribe();
   }
 }

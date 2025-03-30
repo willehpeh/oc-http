@@ -9,11 +9,11 @@ export class ModalService {
   private router = inject(Router);
 
   private showSoldModal = signal<boolean>(false);
-  private showOfferMadeModal = signal<boolean>(false);
+  private showOfferSubmittedModal = signal<boolean>(false);
   private showOfferLimitReachedModal = signal<boolean>(false);
 
   soldModalVisible = this.showSoldModal.asReadonly();
-  offerMadeModalVisible = this.showOfferMadeModal.asReadonly();
+  offerSubmittedModalVisible = this.showOfferSubmittedModal.asReadonly();
   offerLimitReachedModalVisible = this.showOfferLimitReachedModal.asReadonly();
 
   toggleSoldModal(): void {
@@ -24,10 +24,10 @@ export class ModalService {
     this.showOfferLimitReachedModal.update(value => !value);
   }
 
-  toggleOfferMadeModal(): void {
-    this.showOfferMadeModal.set(true);
+  showOfferSubmittedModalThenNavigate(): void {
+    this.showOfferSubmittedModal.set(true);
     setTimeout(() => {
-      this.showOfferMadeModal.set(false);
+      this.showOfferSubmittedModal.set(false);
       this.router.navigate(['/housing']);
     }, 2000);
   }
