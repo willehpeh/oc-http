@@ -1,12 +1,16 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { HousingService } from '../../services/housing.service';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-make-offer',
   imports: [
     AsyncPipe,
-    CurrencyPipe
+    CurrencyPipe,
+    FormsModule
   ],
   template: `
 		@if (propertyPreview() | async; as property) {
@@ -22,25 +26,25 @@ import { AsyncPipe, CurrencyPipe } from '@angular/common';
 						</div>
 					</div>
 
-					<form class="offer-form" id="offerForm">
+					<form class="offer-form" #offerForm="ngForm">
 						<div class="form-group">
 							<label for="name">Full Name</label>
-							<input type="text" id="name" name="name" required>
+							<input type="text" id="name" name="name">
 						</div>
 
 						<div class="form-group">
 							<label for="email">Email Address</label>
-							<input type="email" id="email" name="email" required>
+							<input type="email" id="email" name="email">
 						</div>
 
 						<div class="form-group">
 							<label for="phone">Phone Number</label>
-							<input type="tel" id="phone" name="phone" required>
+							<input type="tel" id="phone" name="phone">
 						</div>
 
 						<div class="form-group">
 							<label for="offer">Your Offer (€)</label>
-							<input type="number" id="offer" name="offer" min="0" step="1000" required>
+							<input type="number" id="offer" name="offer" min="0" step="1000">
 						</div>
 
 						<div class="form-group">
@@ -58,10 +62,13 @@ import { AsyncPipe, CurrencyPipe } from '@angular/common';
 })
 export class MakeOfferComponent {
   private housingService = inject(HousingService);
+  private router = inject(Router);
   id = input.required<string>();
   propertyPreview = computed(() => this.housingService.getHousingProperty(this.id()));
 
   onSubmitOffer(id: string) {
-
+    this.housingService.makeOffer(id).pipe(
+      tap(() => this.router.navigateByUrl('/housing'))
+    ).subscribe();
   }
 }
