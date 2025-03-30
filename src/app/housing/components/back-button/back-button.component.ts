@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,51 +11,15 @@ import { Router } from '@angular/router';
 			</svg>
 		</a>
   `,
-  styles: `
-    .back-button {
-      position: absolute;
-      top: 2rem;
-      left: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      background-color: rgba(30, 30, 30, 0.8);
-      color: var(--on-surface);
-      text-decoration: none;
-      border-radius: 50%;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-      z-index: 2;
-      cursor: pointer;
-    }
-
-    .back-button:hover {
-      background-color: var(--primary);
-      color: var(--background);
-      transform: translateX(-4px);
-    }
-
-    .back-button svg {
-      width: 20px;
-      height: 20px;
-      transition: transform 0.3s ease;
-    }
-
-    .back-button:hover svg {
-      transform: translateX(-2px);
-    }
-  `
+  styleUrls: ['./back-button.component.scss']
 })
 export class BackButtonComponent {
 
   private router = inject(Router);
-  backDestinationRoute = input.required<string>();
+  backDestination = input.required<string>();
+  private backRoute = computed(() => this.backDestination().split('/'))
 
   onGoBack() {
-    this.router.navigate(this.backDestinationRoute().split('/'));
+    this.router.navigate(this.backRoute());
   }
 }
