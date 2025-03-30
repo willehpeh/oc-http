@@ -35,6 +35,6 @@ export class HousingService {
   }
 
   isPropertyAlreadySold(id: string): Observable<boolean> {
-    return of(true);
+    return of(Math.random() < 0.5);
   }
 }
