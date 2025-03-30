@@ -2,15 +2,18 @@ import { Component, computed, inject, input } from '@angular/core';
 import { HousingService } from '../../services/housing.service';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { ModalService } from '../../../layout/services/modal.service';
+import { OfferLimitReachedModalComponent } from './offer-limit-reached-modal/offer-limit-reached-modal.component';
 
 @Component({
   selector: 'app-make-offer',
   imports: [
     AsyncPipe,
     CurrencyPipe,
-    FormsModule
+    FormsModule,
+    OfferLimitReachedModalComponent
   ],
   template: `
 		@if (propertyPreview() | async; as property) {
@@ -52,22 +55,34 @@ import { FormsModule } from '@angular/forms';
 							<textarea id="message" name="message" rows="4"></textarea>
 						</div>
 
-						<button type="submit" class="submit-button" (click)="onSubmitOffer(property.id)">Submit Offer</button>
+						<button type="submit" class="submit-button" (click)="onSubmitOffer()">Submit Offer</button>
 					</form>
 				</div>
 			</main>
+			@if (offerLimitReachedModalVisible()) {
+        <app-offer-limit-reached-modal/>
+			}
 		}
   `,
   styleUrls: ['./make-offer.component.scss']
 })
 export class MakeOfferComponent {
   private housingService = inject(HousingService);
+  private modalService = inject(ModalService);
   private router = inject(Router);
   id = input.required<string>();
   propertyPreview = computed(() => this.housingService.getHousingProperty(this.id()));
+  offerLimitReachedModalVisible = this.modalService.offerLimitReachedModalVisible;
 
-  onSubmitOffer(id: string) {
-    this.housingService.makeOffer(id).pipe(
+  onSubmitOffer(): void {
+    this.housingService.offerLimitReached(this.id()).pipe(
+      tap(limitReached => {
+        if (limitReached) {
+          this.modalService.toggleOfferLimitReachedModal();
+        }
+      }),
+      filter(limitReached => !limitReached),
+      switchMap(() => this.housingService.makeOffer(this.id())),
       tap(() => this.router.navigateByUrl('/housing'))
     ).subscribe();
   }

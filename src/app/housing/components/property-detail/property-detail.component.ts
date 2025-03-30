@@ -62,7 +62,7 @@ export class PropertyDetailComponent {
   soldModalVisible = this.modalService.soldModalVisible;
 
   onMakeOffer() {
-    this.housingService.isPropertyAlreadySold(this.id()).pipe(
+    this.housingService.propertyAlreadySold(this.id()).pipe(
       tap(sold => {
         if (sold)  {
           this.modalService.toggleSoldModal();

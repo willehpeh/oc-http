@@ -34,7 +34,11 @@ export class HousingService {
     );
   }
 
-  isPropertyAlreadySold(id: string): Observable<boolean> {
+  offerLimitReached(id: string): Observable<boolean> {
+    return of(Math.random() < 0.5);
+  }
+
+  propertyAlreadySold(id: string): Observable<boolean> {
     return of(Math.random() < 0.5);
   }
 }
