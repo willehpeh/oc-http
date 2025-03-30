@@ -14,19 +14,18 @@ import {
     PropertyListCardThumbnailComponent
   ],
   template: `
-		@let property = propertyPreview();
 		<article class="property-card">
-			@if (property.offerMade) {
+			@if (property().offerMade) {
 				<div class="offer-made-banner">Offer Made</div>
 			}
-			<a [routerLink]="property.id" class="property-link">
-				<app-property-list-card-thumbnail [propertyPreview]="property"/>
-				<app-property-list-card-details [propertyPreview]="property"/>
+			<a [routerLink]="property().id" class="property-link">
+				<app-property-list-card-thumbnail [property]="property()"/>
+				<app-property-list-card-details [property]="property()"/>
 			</a>
 		</article>
   `,
   styleUrls: ['./property-list-card.component.scss']
 })
 export class PropertyListCardComponent {
-  propertyPreview = input.required<HousingPropertyPreview>();
+  property = input.required<HousingPropertyPreview>();
 }

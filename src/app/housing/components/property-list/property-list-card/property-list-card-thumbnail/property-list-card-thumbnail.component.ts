@@ -5,10 +5,9 @@ import { HousingPropertyPreview } from '../../../../models/housing-property';
   selector: 'app-property-list-card-thumbnail',
   imports: [],
   template: `
-    @let property = propertyPreview();
 		<div class="property-image">
-			<img [src]="property.thumbnailUrl"
-					 [alt]="property.title">
+			<img [src]="property().thumbnailUrl"
+					 [alt]="property().title">
 		</div>
   `,
   styles: `
@@ -26,5 +25,5 @@ import { HousingPropertyPreview } from '../../../../models/housing-property';
     }`
 })
 export class PropertyListCardThumbnailComponent {
-  propertyPreview = input.required<HousingPropertyPreview>();
+  property = input.required<HousingPropertyPreview>();
 }

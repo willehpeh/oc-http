@@ -8,12 +8,11 @@ import { HousingPropertyPreview } from '../../../../models/housing-property';
     CurrencyPipe
   ],
   template: `
-    @let property = propertyPreview();
-		<h2>{{ property.title }}</h2>
+		<h2>{{ property().title }}</h2>
 		<div class="property-details">
-			<span class="price">{{ property.price | currency: 'EUR' : 'symbol' : '4.0-0' }}</span>
-			<span class="surface">{{ property.surface }}m²</span>
-			<span class="city">{{ property.city }}</span>
+			<span class="price">{{ property().price | currency: 'EUR' : 'symbol' : '4.0-0' }}</span>
+			<span class="surface">{{ property().surface }}m²</span>
+			<span class="city">{{ property().city }}</span>
 		</div>
   `,
   styles: `
@@ -46,5 +45,5 @@ import { HousingPropertyPreview } from '../../../../models/housing-property';
     }`
 })
 export class PropertyListCardDetailsComponent {
-  propertyPreview = input.required<HousingPropertyPreview>();
+  property = input.required<HousingPropertyPreview>();
 }
