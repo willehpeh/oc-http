@@ -35,9 +35,6 @@ import { BackButtonComponent } from '../back-button/back-button.component';
 					</div>
 
 					<app-property-specs [property]="property"/>
-
-					
-
 					<app-property-features [features]="property.features"/>
 
 					<a class="make-offer-button" (click)="onMakeOffer()">Make an Offer</a>
