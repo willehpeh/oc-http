@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ModalService } from '../../../layout/services/modal.service';
 import { PropertySoldModalComponent } from './property-sold-modal/property-sold-modal.component';
 import { tap } from 'rxjs';
+import { BackButtonComponent } from '../back-button/back-button.component';
 
 @Component({
   selector: 'app-property-detail',
@@ -15,12 +16,14 @@ import { tap } from 'rxjs';
     CurrencyPipe,
     PropertyFeaturesComponent,
     PropertySpecsComponent,
-    PropertySoldModalComponent
+    PropertySoldModalComponent,
+    BackButtonComponent
   ],
   template: `
 		@if (housingProperty() | async; as property) {
 			<main class="property-details">
 				<div class="property-hero">
+          <app-back-button backDestinationRoute="/housing"/>
 					<div class="offer-made-banner">Offer Made</div>
 					<img [src]="property.thumbnailUrl" [alt]="property.title" class="property-hero-image">
 				</div>
