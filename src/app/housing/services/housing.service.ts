@@ -33,4 +33,8 @@ export class HousingService {
       })
     );
   }
+
+  isPropertyAlreadySold(id: string): Observable<boolean> {
+    return of(true);
+  }
 }
