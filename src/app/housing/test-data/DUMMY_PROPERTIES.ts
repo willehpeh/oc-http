@@ -9,7 +9,7 @@ export const DUMMY_PROPERTIES: HousingPropertyWithDetails[] = [
     price: 1_200_000,
     surface: 350,
     city: 'Neuilly-sur-Seine',
-    offerMade: true,
+    offerMade: false,
     bedrooms: 4,
     bathrooms: 2,
     description: `
