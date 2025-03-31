@@ -1,5 +1,4 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { HousingService } from '../../services/housing.service';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { PropertyFeaturesComponent } from './property-features/property-features.component';
 import { PropertySpecsComponent } from './property-specs/property-specs.component';
@@ -8,6 +7,7 @@ import { ModalService } from '../../../layout/services/modal.service';
 import { PropertySoldModalComponent } from './property-sold-modal/property-sold-modal.component';
 import { tap } from 'rxjs';
 import { BackButtonComponent } from '../back-button/back-button.component';
+import { HousingService } from '../../services/housing.service';
 
 @Component({
   selector: 'app-property-detail',

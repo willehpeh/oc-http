@@ -1,11 +1,11 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { HousingService } from '../../services/housing.service';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { filter, switchMap, tap } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ModalService } from '../../../layout/services/modal.service';
 import { OfferLimitReachedModalComponent } from './offer-limit-reached-modal/offer-limit-reached-modal.component';
 import { OfferSubmittedModalComponent } from './offer-submitted-modal/offer-submitted-modal.component';
+import { HousingService } from '../../services/housing.service';
 
 @Component({
   selector: 'app-make-offer',
