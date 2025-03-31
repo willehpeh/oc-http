@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { PropertyListCardComponent } from './property-list-card/property-list-card.component';
-import { DUMMY_PROPERTIES } from '../../test-data/DUMMY_PROPERTIES';
 import { HousingService } from '../../services/housing.service';
 import { AsyncPipe } from '@angular/common';
 
@@ -11,9 +10,10 @@ import { AsyncPipe } from '@angular/common';
     AsyncPipe
   ],
   template: `
+    @let properties = properties$ | async;
 		<main class="property-list">
 			<div class="property-grid">
-				@for (property of properties$ | async; track property.id) {
+				@for (property of properties; track property.id) {
 					<app-property-list-card [property]="property"/>
 				}
 			</div>
@@ -30,5 +30,4 @@ import { AsyncPipe } from '@angular/common';
 export class PropertyListComponent {
   private housingService = inject(HousingService);
   properties$ = this.housingService.getAllProperties();
-  protected readonly DUMMY_PROPERTIES = DUMMY_PROPERTIES;
 }
