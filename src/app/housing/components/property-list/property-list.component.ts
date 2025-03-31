@@ -1,18 +1,16 @@
-import { Component, inject } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
+import { Component } from '@angular/core';
 import { PropertyListCardComponent } from './property-list-card/property-list-card.component';
-import { HousingService } from '../../services/housing.service';
+import { DUMMY_PROPERTIES } from '../../test-data/DUMMY_PROPERTIES';
 
 @Component({
   selector: 'app-property-list',
   imports: [
-    AsyncPipe,
     PropertyListCardComponent
   ],
   template: `
 		<main class="property-list">
 			<div class="property-grid">
-				@for (preview of housingPropertyPreviews$ | async; track preview.id) {
+				@for (preview of DUMMY_PROPERTIES; track preview.id) {
           <app-property-list-card [property]="preview"/>
 				}
       </div>
@@ -27,6 +25,5 @@ import { HousingService } from '../../services/housing.service';
   `
 })
 export class PropertyListComponent {
-  private housingService = inject(HousingService);
-  housingPropertyPreviews$ = this.housingService.getHousingPropertiesList();
+  protected readonly DUMMY_PROPERTIES = DUMMY_PROPERTIES;
 }
