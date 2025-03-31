@@ -9,6 +9,13 @@ import { DUMMY_PROPERTIES } from '../test-data/DUMMY_PROPERTIES';
 export class HousingService {
 
   private _properties: HousingPropertyWithDetails[] = [...DUMMY_PROPERTIES];
+  private readonly _soldProperties: string[] = [];
+  private readonly _maxOfferProperties: string[] = [];
+
+  constructor() {
+    this._soldProperties.push(this._properties[this._properties.length - 2].id);
+    this._maxOfferProperties.push(this._properties[this._properties.length - 1].id);
+  }
 
   getHousingPropertiesList(): Observable<HousingPropertyPreview[]> {
     return of(this._properties);
@@ -35,10 +42,10 @@ export class HousingService {
   }
 
   offerLimitReached(id: string): Observable<boolean> {
-    return of(Math.random() < 0.5);
+    return of(this._maxOfferProperties.includes(id));
   }
 
   propertyAlreadySold(id: string): Observable<boolean> {
-    return of(Math.random() < 0.5);
+    return of(this._soldProperties.includes(id));
   }
 }

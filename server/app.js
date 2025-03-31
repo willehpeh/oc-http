@@ -1,11 +1,31 @@
 const express = require('express');
 const { DUMMY_PROPERTIES } = require('./data');
+const soldProperties = [DUMMY_PROPERTIES[DUMMY_PROPERTIES.length - 2].id];
+const maxOfferProperties = [DUMMY_PROPERTIES[DUMMY_PROPERTIES.length - 1].id];
 const app = express();
 const cors = require('cors');
 app.use(cors());
 
 app.get('/api/properties', (req, res) => {
   res.json(DUMMY_PROPERTIES);
+});
+
+app.get('/api/properties/:id', (req, res) => {
+  const propertyId = req.params.id;
+  const found = DUMMY_PROPERTIES.find(property => property.id === propertyId);
+  if (!found) {
+    res.status(404).json({ message: 'Property not found' });
+    return;
+  }
+  res.json(found);
+});
+
+app.get('/api/properties/:id/sold', (req, res) => {
+  res.json({ id: req.params.id, sold: soldProperties.includes(req.params.id) });
+});
+
+app.get('/api/properties/:id/offer-limit-reached', (req, res) => {
+  res.json({ id: req.params.id, offerLimitReached: maxOfferProperties.includes(req.params.id) });
 });
 
 app.listen(3030, () => {
