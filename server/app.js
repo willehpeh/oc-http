@@ -20,6 +20,16 @@ app.get('/api/properties/:id', (req, res) => {
   res.json(found);
 });
 
+app.post('/api/properties/:id/offer', (req, res ) => {
+  const found = DUMMY_PROPERTIES.find(property => property.id === req.params.id);
+  if (!found) {
+    res.status(404).json({ message: 'Property not found' });
+    return;
+  }
+  found.offerMade = true;
+  res.json({ id: req.params.id, message: 'Offer made successfully' });
+});
+
 app.get('/api/properties/:id/sold', (req, res) => {
   res.json({ id: req.params.id, sold: soldProperties.includes(req.params.id) });
 });

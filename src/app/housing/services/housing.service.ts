@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, tap } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 import { HousingPropertyPreview, HousingPropertyWithDetails } from '../models/housing-property';
 import { DUMMY_PROPERTIES } from '../test-data/DUMMY_PROPERTIES';
 
@@ -27,7 +27,7 @@ export class HousingService {
     return of(found);
   }
 
-  makeOffer(id: string): Observable<void> {
+  makeOffer(id: string): Observable<{ id: string, message: string }> {
     return of(undefined).pipe(
       tap(() => {
         const found = this._properties.find(property => property.id === id);
@@ -35,7 +35,8 @@ export class HousingService {
           throw new Error(`Property with id ${id} not found`);
         }
         found.offerMade = true;
-      })
+      }),
+      map(() => ({ id, message: 'Offer made successfully' }))
     );
   }
 
