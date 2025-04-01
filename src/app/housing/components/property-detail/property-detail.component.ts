@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { PropertyFeaturesComponent } from './property-features/property-features.component';
 import { PropertySpecsComponent } from './property-specs/property-specs.component';
@@ -37,5 +37,6 @@ import { DUMMY_PROPERTIES } from '../../test-data/DUMMY_PROPERTIES';
   styleUrls: ['./property-detail.component.scss'],
 })
 export class PropertyDetailComponent {
+  id = input.required<string>();
   property = DUMMY_PROPERTIES[0];
 }
