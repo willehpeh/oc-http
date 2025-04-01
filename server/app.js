@@ -7,7 +7,16 @@ const cors = require('cors');
 app.use(cors());
 
 app.get('/api/properties', (req, res) => {
-  res.json(DUMMY_PROPERTIES);
+  const previews = DUMMY_PROPERTIES.map(property => ({
+    id: property.id,
+    title: property.title,
+    thumbnailUrl: property.thumbnailUrl,
+    price: property.price,
+    surface: property.surface,
+    city: property.city,
+    offerMade: property.offerMade,
+  }));
+  res.json(previews);
 });
 
 app.get('/api/properties/:id', (req, res) => {
