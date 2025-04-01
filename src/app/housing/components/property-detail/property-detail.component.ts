@@ -6,6 +6,7 @@ import { BackButtonComponent } from '../back-button/back-button.component';
 import { HousingService } from '../../services/housing.service';
 import { Observable } from 'rxjs';
 import { HousingPropertyWithDetails } from '../../models/housing-property';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-property-detail',
@@ -34,7 +35,7 @@ import { HousingPropertyWithDetails } from '../../models/housing-property';
 					<app-property-specs [property]="property"/>
 					<app-property-features [features]="property.features"/>
 
-					<a class="make-offer-button">Make an Offer</a>
+					<a class="make-offer-button" (click)="onMakeOffer()">Make an Offer</a>
 				</div>
 			</main>
 		}
@@ -43,11 +44,16 @@ import { HousingPropertyWithDetails } from '../../models/housing-property';
 })
 export class PropertyDetailComponent implements OnInit {
   private housingService = inject(HousingService);
+  private router = inject(Router);
 
   @Input() id!: string;
   property$!: Observable<HousingPropertyWithDetails>;
 
   ngOnInit() {
     this.property$ = this.housingService.getPropertyById(this.id);
+  }
+
+  onMakeOffer() {
+    this.router.navigate(['housing', this.id, 'make-offer']);
   }
 }
