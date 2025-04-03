@@ -35,8 +35,12 @@ app.post('/api/properties/:id/offer', (req, res ) => {
     res.status(404).json({ message: 'Property not found' });
     return;
   }
+  if (!req.body.amount) {
+    res.status(400).json({ message: 'Amount is required' });
+    return;
+  }
   found.offerMade = true;
-  res.json({ id: req.params.id, message: 'Offer made successfully' });
+  res.json({ id: req.params.id, message: `Offer for ${ req.body.amount } made successfully` });
 });
 
 app.get('/api/properties/:id/sold', (req, res) => {
