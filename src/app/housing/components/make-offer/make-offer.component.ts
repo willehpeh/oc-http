@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HousingService } from '../../services/housing.service';
@@ -60,7 +60,7 @@ import { HousingPropertyWithDetails } from '../../models/housing-property';
   `,
   styleUrls: ['./make-offer.component.scss']
 })
-export class MakeOfferComponent {
+export class MakeOfferComponent implements OnInit {
   private housingService = inject(HousingService);
   @Input() id!: string;
   property$!: Observable<HousingPropertyWithDetails>;
