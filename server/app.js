@@ -47,7 +47,7 @@ app.get('/api/properties/:id/sold', (req, res) => {
   res.json({ id: req.params.id, sold: soldProperties.includes(req.params.id) });
 });
 
-app.get('/api/properties/:id/offer-limit-reached', (req, res) => {
+app.get('/api/properties/:id/check-offer-limit', (req, res) => {
   res.json({ id: req.params.id, offerLimitReached: maxOfferProperties.includes(req.params.id) });
 });
 
