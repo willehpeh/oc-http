@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { HousingService } from '../../services/housing.service';
 import { Observable } from 'rxjs';
 import { HousingPropertyWithDetails } from '../../models/housing-property';
@@ -52,7 +52,7 @@ import { HousingPropertyWithDetails } from '../../models/housing-property';
 							<textarea id="message" name="message" rows="4"></textarea>
 						</div>
 
-						<button type="submit" class="submit-button">Submit Offer</button>
+						<button type="submit" class="submit-button" (click)="onSubmitForm(offerForm)">Submit Offer</button>
 					</form>
 				</div>
 			</main>
@@ -67,5 +67,9 @@ export class MakeOfferComponent implements OnInit {
 
   ngOnInit(): void {
     this.property$ = this.housingService.getPropertyById(this.id);
+  }
+
+  onSubmitForm(offerForm: NgForm): void {
+
   }
 }
