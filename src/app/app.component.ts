@@ -1,16 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './layout/header/header.component';
+import { HeaderComponent } from './core/layout/header/header.component';
 import {
   OfferLimitReachedModalComponent
-} from './housing/components/make-offer/offer-limit-reached-modal/offer-limit-reached-modal.component';
+} from './shared/modals/offer-limit-reached-modal/offer-limit-reached-modal.component';
 import {
   OfferSubmittedModalComponent
-} from './housing/components/make-offer/offer-submitted-modal/offer-submitted-modal.component';
-import { ModalService } from './layout/services/modal.service';
+} from './shared/modals/offer-submitted-modal/offer-submitted-modal.component';
+import { ModalService } from './core/layout/services/modal.service';
 import {
   PropertySoldModalComponent
-} from './housing/components/property-detail/property-sold-modal/property-sold-modal.component';
+} from './shared/modals/property-sold-modal/property-sold-modal.component';
 
 @Component({
   selector: 'app-root',
