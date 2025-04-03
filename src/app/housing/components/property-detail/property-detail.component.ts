@@ -4,7 +4,6 @@ import { PropertyFeaturesComponent } from './property-features/property-features
 import { PropertySpecsComponent } from './property-specs/property-specs.component';
 import { Router } from '@angular/router';
 import { ModalService } from '../../../layout/services/modal.service';
-import { PropertySoldModalComponent } from './property-sold-modal/property-sold-modal.component';
 import { tap } from 'rxjs';
 import { BackButtonComponent } from '../back-button/back-button.component';
 import { HousingService } from '../../services/housing.service';
@@ -16,7 +15,6 @@ import { HousingService } from '../../services/housing.service';
     CurrencyPipe,
     PropertyFeaturesComponent,
     PropertySpecsComponent,
-    PropertySoldModalComponent,
     BackButtonComponent
   ],
   template: `
@@ -40,9 +38,6 @@ import { HousingService } from '../../services/housing.service';
 					<a class="make-offer-button" (click)="onMakeOffer()">Make an Offer</a>
 				</div>
 			</main>
-			@if (soldModalVisible()) {
-				<app-property-sold-modal/>
-			}
 		}
   `,
   styleUrls: ['./property-detail.component.scss'],
@@ -53,7 +48,6 @@ export class PropertyDetailComponent {
   private router = inject(Router);
   id = input.required<string>();
   housingProperty = computed(() => this.housingService.getHousingProperty(this.id()));
-  soldModalVisible = this.modalService.soldModalVisible;
 
   onMakeOffer() {
     this.housingService.propertyAlreadySold(this.id()).pipe(

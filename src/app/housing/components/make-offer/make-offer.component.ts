@@ -3,8 +3,6 @@ import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { filter, switchMap, tap } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ModalService } from '../../../layout/services/modal.service';
-import { OfferLimitReachedModalComponent } from './offer-limit-reached-modal/offer-limit-reached-modal.component';
-import { OfferSubmittedModalComponent } from './offer-submitted-modal/offer-submitted-modal.component';
 import { HousingService } from '../../services/housing.service';
 
 @Component({
@@ -13,8 +11,6 @@ import { HousingService } from '../../services/housing.service';
     AsyncPipe,
     CurrencyPipe,
     FormsModule,
-    OfferLimitReachedModalComponent,
-    OfferSubmittedModalComponent
   ],
   template: `
 		@if (propertyPreview() | async; as property) {
@@ -60,12 +56,6 @@ import { HousingService } from '../../services/housing.service';
 					</form>
 				</div>
 			</main>
-			@if (offerLimitReachedModalVisible()) {
-        <app-offer-limit-reached-modal/>
-			}
-      @if (offerSubmittedModalVisible()) {
-        <app-offer-submitted-modal/>
-      }
 		}
   `,
   styleUrls: ['./make-offer.component.scss']
@@ -75,8 +65,6 @@ export class MakeOfferComponent {
   private modalService = inject(ModalService);
   id = input.required<string>();
   propertyPreview = computed(() => this.housingService.getHousingProperty(this.id()));
-  offerLimitReachedModalVisible = this.modalService.offerLimitReachedModalVisible;
-  offerSubmittedModalVisible = this.modalService.offerSubmittedModalVisible;
 
   onSubmitOffer(): void {
     this.housingService.offerLimitReached(this.id()).pipe(
