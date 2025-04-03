@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ModalService } from '../../../../layout/services/modal.service';
+import { ModalService } from '../../../core/layout/services/modal.service';
 import { Router } from '@angular/router';
 
 @Component({
