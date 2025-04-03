@@ -52,7 +52,11 @@ import { HousingPropertyWithDetails } from '../../models/housing-property';
 							<textarea id="message" name="message" rows="4"></textarea>
 						</div>
 
-						<button type="submit" class="submit-button" (click)="onSubmitForm(offerForm)">Submit Offer</button>
+						<button type="submit" 
+                    class="submit-button" 
+                    (click)="onSubmitForm(offerForm)">
+              Submit Offer
+            </button>
 					</form>
 				</div>
 			</main>
