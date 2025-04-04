@@ -1,14 +1,19 @@
 import { Component, input } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { HousingPropertyPreview } from '../../../../models/housing-property';
+import { FavouriteButtonComponent } from './favourite-button/favourite-button.component';
 
 @Component({
   selector: 'app-property-list-card-details',
   imports: [
-    CurrencyPipe
+    CurrencyPipe,
+    FavouriteButtonComponent
   ],
   template: `
-		<h2>{{ property().title }}</h2>
+		<div class="title">
+			<h2>{{ property().title }}</h2>
+      <app-favourite-button/>
+		</div>
 		<div class="property-details">
 			<span class="price">{{ property().price | currency: 'EUR' : 'symbol' : '4.0-0' }}</span>
 			<span class="surface">{{ property().surface }}m²</span>
@@ -16,6 +21,15 @@ import { HousingPropertyPreview } from '../../../../models/housing-property';
 		</div>
   `,
   styles: `
+    .title {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    app-favourite-button {
+      transform: translateY(0.3rem);
+    }
+    
     .property-details {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
