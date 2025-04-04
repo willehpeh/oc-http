@@ -2,8 +2,9 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HousingService } from '../../services/housing.service';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { HousingPropertyWithDetails } from '../../models/housing-property';
+import { ModalService } from '../../../core/layout/services/modal.service';
 
 @Component({
   selector: 'app-make-offer',
@@ -66,6 +67,7 @@ import { HousingPropertyWithDetails } from '../../models/housing-property';
 })
 export class MakeOfferComponent implements OnInit {
   private housingService = inject(HousingService);
+  private modalService = inject(ModalService);
   @Input() id!: string;
   property$!: Observable<HousingPropertyWithDetails>;
 
@@ -74,6 +76,12 @@ export class MakeOfferComponent implements OnInit {
   }
 
   onSubmitForm(offerForm: NgForm): void {
-
+    this.housingService.checkIfOfferLimitReached(this.id).pipe(
+      tap(limitReached => {
+        if (!limitReached) {
+          this.modalService.toggleOfferLimitReachedModal()
+        }
+      })
+    ).subscribe();
   }
 }
