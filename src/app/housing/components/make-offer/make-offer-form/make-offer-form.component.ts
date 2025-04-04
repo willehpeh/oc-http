@@ -18,27 +18,27 @@ export type OfferFormValue = {
 		<form class="offer-form" [formGroup]="offerForm">
 			<div class="form-group">
 				<label for="name">Full Name</label>
-				<input type="text" id="name" name="name">
+				<input type="text" id="name" formControlName="name">
 			</div>
 
 			<div class="form-group">
 				<label for="email">Email Address</label>
-				<input type="email" id="email" name="email">
+				<input type="email" id="email" formControlName="email">
 			</div>
 
 			<div class="form-group">
 				<label for="phone">Phone Number</label>
-				<input type="tel" id="phone" name="phone">
+				<input type="tel" id="phone" formControlName="phone">
 			</div>
 
 			<div class="form-group">
 				<label for="offer">Your Offer (€)</label>
-				<input type="number" id="offer" name="offer" min="0" step="1000">
+				<input type="number" id="offer" formControlName="offer" min="0" step="1000">
 			</div>
 
 			<div class="form-group">
 				<label for="message">Message (Optional)</label>
-				<textarea id="message" name="message" rows="4"></textarea>
+				<textarea id="message" formControlName="message" rows="4"></textarea>
 			</div>
 
 			<button type="submit"
