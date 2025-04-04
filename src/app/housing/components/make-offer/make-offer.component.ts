@@ -1,11 +1,11 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HousingService } from '../../services/housing.service';
 import { Observable, tap } from 'rxjs';
 import { HousingPropertyWithDetails } from '../../models/housing-property';
 import { ModalService } from '../../../core/layout/services/modal.service';
-import { MakeOfferFormComponent } from './make-offer-form/make-offer-form.component';
+import { MakeOfferFormComponent, OfferFormValue } from './make-offer-form/make-offer-form.component';
 
 @Component({
   selector: 'app-make-offer',
@@ -28,7 +28,7 @@ import { MakeOfferFormComponent } from './make-offer-form/make-offer-form.compon
 							<p class="location">{{ property.city }}</p>
 						</div>
 					</div>
-          <app-make-offer-form/>
+          <app-make-offer-form (formSubmitted)="onSubmitForm($event)" />
 				</div>
 			</main>
 		}
@@ -45,7 +45,7 @@ export class MakeOfferComponent implements OnInit {
     this.property$ = this.housingService.getPropertyById(this.id);
   }
 
-  onSubmitForm(offerForm: NgForm): void {
+  onSubmitForm(offerFormValue: OfferFormValue): void {
     this.housingService.checkIfOfferLimitReached(this.id).pipe(
       tap(limitReached => {
         if (limitReached) {
