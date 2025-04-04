@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HousingService } from '../../services/housing.service';
 import { Observable } from 'rxjs';
 import { HousingPropertyWithDetails } from '../../models/housing-property';
+import { MakeOfferFormComponent } from './make-offer-form/make-offer-form.component';
 
 @Component({
   selector: 'app-make-offer',
@@ -11,6 +12,7 @@ import { HousingPropertyWithDetails } from '../../models/housing-property';
     CurrencyPipe,
     FormsModule,
     AsyncPipe,
+    MakeOfferFormComponent,
   ],
   template: `
 		@if (property$ | async; as property) {
@@ -25,35 +27,7 @@ import { HousingPropertyWithDetails } from '../../models/housing-property';
 							<p class="location">{{ property.city }}</p>
 						</div>
 					</div>
-
-					<form class="offer-form" #offerForm="ngForm">
-						<div class="form-group">
-							<label for="name">Full Name</label>
-							<input type="text" id="name" name="name">
-						</div>
-
-						<div class="form-group">
-							<label for="email">Email Address</label>
-							<input type="email" id="email" name="email">
-						</div>
-
-						<div class="form-group">
-							<label for="phone">Phone Number</label>
-							<input type="tel" id="phone" name="phone">
-						</div>
-
-						<div class="form-group">
-							<label for="offer">Your Offer (€)</label>
-							<input type="number" id="offer" name="offer" min="0" step="1000">
-						</div>
-
-						<div class="form-group">
-							<label for="message">Message (Optional)</label>
-							<textarea id="message" name="message" rows="4"></textarea>
-						</div>
-
-						<button type="submit" class="submit-button">Submit Offer</button>
-					</form>
+          <app-make-offer-form/>
 				</div>
 			</main>
 		}
