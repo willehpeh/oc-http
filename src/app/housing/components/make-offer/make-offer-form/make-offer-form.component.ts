@@ -1,5 +1,13 @@
 import { Component, output } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+
+export type OfferFormValue = {
+  name: string;
+  email: string;
+  phone: string;
+  offer: number;
+  message: string;
+};
 
 @Component({
   selector: 'app-make-offer-form',
@@ -7,7 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   template: `
-		<form class="offer-form">
+		<form class="offer-form" [formGroup]="offerForm">
 			<div class="form-group">
 				<label for="name">Full Name</label>
 				<input type="text" id="name" name="name">
@@ -91,8 +99,16 @@ import { ReactiveFormsModule } from '@angular/forms';
   `
 })
 export class MakeOfferFormComponent {
-  formSubmitted = output<{}>()
-  onSubmitForm() {
+  offerForm = new FormGroup({
+    name: new FormControl('', { nonNullable: true }),
+    email: new FormControl('', { nonNullable: true }),
+    phone: new FormControl('', { nonNullable: true }),
+    offer: new FormControl(0, { nonNullable: true }),
+    message: new FormControl('', { nonNullable: true }),
+  });
+  formSubmitted = output<OfferFormValue>();
 
+  onSubmitForm() {
+    this.formSubmitted.emit(this.offerForm.value as OfferFormValue);
   }
 }
