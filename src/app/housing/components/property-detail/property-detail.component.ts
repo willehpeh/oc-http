@@ -22,7 +22,9 @@ import { Router } from '@angular/router';
 			<main class="property-details">
 				<div class="property-hero">
 					<app-back-button backDestination="/housing"/>
-					<div class="offer-made-banner">Offer Made</div>
+					@if (property.offerMade) {
+						<div class="offer-made-banner">Offer Made</div>
+					}
 					<img [src]="property.thumbnailUrl" [alt]="property.title" class="property-hero-image">
 				</div>
 
