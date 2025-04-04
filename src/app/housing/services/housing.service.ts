@@ -26,4 +26,10 @@ export class HousingService {
   makeOffer(id: string, amount: number) {
     return this.http.post(`http://localhost:3030/api/properties/${id}/make-offer`, { amount });
   }
+
+  checkIfPropertySold(id: string): Observable<boolean> {
+    return this.http.get<{ id: string, sold: boolean }>(`http://localhost:3030/api/properties/${id}/sold`).pipe(
+      map(response => response.sold)
+    );
+  }
 }

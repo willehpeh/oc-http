@@ -4,9 +4,10 @@ import { PropertyFeaturesComponent } from './property-features/property-features
 import { PropertySpecsComponent } from './property-specs/property-specs.component';
 import { BackButtonComponent } from '../back-button/back-button.component';
 import { HousingService } from '../../services/housing.service';
-import { Observable } from 'rxjs';
+import { filter, Observable, tap } from 'rxjs';
 import { HousingPropertyWithDetails } from '../../models/housing-property';
 import { Router } from '@angular/router';
+import { ModalService } from '../../../core/layout/services/modal.service';
 
 @Component({
   selector: 'app-property-detail',
@@ -47,6 +48,7 @@ import { Router } from '@angular/router';
 export class PropertyDetailComponent implements OnInit {
   private housingService = inject(HousingService);
   private router = inject(Router);
+  private modalService = inject(ModalService);
 
   @Input() id!: string;
   property$!: Observable<HousingPropertyWithDetails>;
@@ -56,6 +58,14 @@ export class PropertyDetailComponent implements OnInit {
   }
 
   onMakeOffer() {
-    this.router.navigate(['housing', this.id, 'make-offer']);
+    this.housingService.checkIfPropertySold(this.id).pipe(
+      tap(sold => {
+        if (sold) {
+          this.modalService.toggleSoldModal();
+        }
+      }),
+      filter(sold => !sold),
+      tap(() => this.router.navigate(['housing', this.id, 'make-offer']))
+    ).subscribe();
   }
 }
