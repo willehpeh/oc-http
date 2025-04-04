@@ -78,7 +78,7 @@ export class MakeOfferComponent implements OnInit {
   onSubmitForm(offerForm: NgForm): void {
     this.housingService.checkIfOfferLimitReached(this.id).pipe(
       tap(limitReached => {
-        if (!limitReached) {
+        if (limitReached) {
           this.modalService.toggleOfferLimitReachedModal()
         }
       })
