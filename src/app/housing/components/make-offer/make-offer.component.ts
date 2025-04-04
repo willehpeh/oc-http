@@ -1,6 +1,5 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { HousingService } from '../../services/housing.service';
 import { Observable } from 'rxjs';
 import { HousingPropertyWithDetails } from '../../models/housing-property';
@@ -10,7 +9,6 @@ import { MakeOfferFormComponent } from './make-offer-form/make-offer-form.compon
   selector: 'app-make-offer',
   imports: [
     CurrencyPipe,
-    FormsModule,
     AsyncPipe,
     MakeOfferFormComponent,
   ],
