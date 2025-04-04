@@ -37,7 +37,7 @@ app.post('/api/properties/:id/make-offer', (req, res ) => {
     res.status(404).json({ message: 'Property not found' });
     return;
   }
-  if (!req.body.amount) {
+  if (req.body.amount === undefined) {
     res.status(400).json({ message: 'Amount is required' });
     return;
   }
