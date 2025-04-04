@@ -55,11 +55,10 @@ export class MakeOfferComponent implements OnInit {
       filter(limitReached => !limitReached),
       switchMap(() => this.housingService.makeOffer(this.id, offerFormValue.offer)),
       tap(() => this.modalService.toggleOfferSubmittedModal()),
-      delay(2000),
-      tap(() => {
-        this.modalService.toggleOfferSubmittedModal();
-        this.router.navigate(['/housing']);
-      })
+      delay(1500),
+      tap(() => this.router.navigate(['/housing'])),
+      delay(500),
+      tap(() => this.modalService.toggleOfferSubmittedModal())
     ).subscribe();
   }
 }
