@@ -1,10 +1,11 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { HousingService } from '../../services/housing.service';
-import { filter, Observable, switchMap, tap } from 'rxjs';
+import { delay, filter, Observable, switchMap, tap } from 'rxjs';
 import { HousingPropertyWithDetails } from '../../models/housing-property';
 import { ModalService } from '../../../core/layout/services/modal.service';
 import { MakeOfferFormComponent, OfferFormValue } from './make-offer-form/make-offer-form.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-make-offer',
@@ -36,6 +37,7 @@ import { MakeOfferFormComponent, OfferFormValue } from './make-offer-form/make-o
 export class MakeOfferComponent implements OnInit {
   private housingService = inject(HousingService);
   private modalService = inject(ModalService);
+  private router = inject(Router);
   @Input() id!: string;
   property$!: Observable<HousingPropertyWithDetails>;
 
@@ -51,7 +53,13 @@ export class MakeOfferComponent implements OnInit {
         }
       }),
       filter(limitReached => !limitReached),
-      switchMap(() => this.housingService.makeOffer(this.id, offerFormValue.offer))
+      switchMap(() => this.housingService.makeOffer(this.id, offerFormValue.offer)),
+      tap(() => this.modalService.toggleOfferSubmittedModal()),
+      delay(2000),
+      tap(() => {
+        this.modalService.toggleOfferSubmittedModal();
+        this.router.navigate(['/housing']);
+      })
     ).subscribe();
   }
 }
