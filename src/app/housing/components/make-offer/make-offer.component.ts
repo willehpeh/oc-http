@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { HousingService } from '../../services/housing.service';
-import { Observable, tap } from 'rxjs';
+import { filter, Observable, switchMap, tap } from 'rxjs';
 import { HousingPropertyWithDetails } from '../../models/housing-property';
 import { ModalService } from '../../../core/layout/services/modal.service';
 import { MakeOfferFormComponent, OfferFormValue } from './make-offer-form/make-offer-form.component';
@@ -49,7 +49,9 @@ export class MakeOfferComponent implements OnInit {
         if (limitReached) {
           this.modalService.toggleOfferLimitReachedModal()
         }
-      })
+      }),
+      filter(limitReached => !limitReached),
+      switchMap(() => this.housingService.makeOffer(this.id, offerFormValue.offer))
     ).subscribe();
   }
 }
