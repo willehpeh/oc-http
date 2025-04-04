@@ -4,7 +4,9 @@ const soldProperties = [DUMMY_PROPERTIES[DUMMY_PROPERTIES.length - 2].id];
 const maxOfferProperties = [DUMMY_PROPERTIES[DUMMY_PROPERTIES.length - 1].id];
 const app = express();
 const cors = require('cors');
+const bodyParser = require('body-parser');
 app.use(cors());
+app.use(bodyParser.json());
 
 app.get('/api/properties', (req, res) => {
   const previews = DUMMY_PROPERTIES.map(property => ({
@@ -29,7 +31,7 @@ app.get('/api/properties/:id', (req, res) => {
   res.json(found);
 });
 
-app.post('/api/properties/:id/offer', (req, res ) => {
+app.post('/api/properties/:id/make-offer', (req, res ) => {
   const found = DUMMY_PROPERTIES.find(property => property.id === req.params.id);
   if (!found) {
     res.status(404).json({ message: 'Property not found' });
