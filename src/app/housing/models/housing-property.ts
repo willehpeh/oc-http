@@ -6,6 +6,7 @@ export type HousingPropertyPreview = {
   surface: number;
   city: string;
   offerMade: boolean;
+  favourite: boolean;
 }
 
 export type HousingPropertyDetails = {

@@ -17,6 +17,7 @@ app.get('/api/properties', (req, res) => {
     surface: property.surface,
     city: property.city,
     offerMade: property.offerMade,
+    favourite: property.favourite,
   }));
   res.json(previews);
 });

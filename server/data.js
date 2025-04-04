@@ -8,6 +8,7 @@ const DUMMY_PROPERTIES = [
     surface: 450,
     city: 'Cannes',
     offerMade: false,
+    favourite: false,
     bedrooms: 5,
     bathrooms: 4,
     description: `
@@ -31,6 +32,7 @@ const DUMMY_PROPERTIES = [
     surface: 850,
     city: 'Bordeaux',
     offerMade: false,
+    favourite: false,
     bedrooms: 8,
     bathrooms: 6,
     description: `
@@ -54,6 +56,7 @@ const DUMMY_PROPERTIES = [
     surface: 320,
     city: 'Chamonix',
     offerMade: false,
+    favourite: false,
     bedrooms: 5,
     bathrooms: 4,
     description: `
@@ -77,6 +80,7 @@ const DUMMY_PROPERTIES = [
     surface: 210,
     city: 'Lyon',
     offerMade: false,
+    favourite: false,
     bedrooms: 2,
     bathrooms: 2,
     description: `
@@ -100,6 +104,7 @@ const DUMMY_PROPERTIES = [
     surface: 380,
     city: 'Aix-en-Provence',
     offerMade: false,
+    favourite: false,
     bedrooms: 6,
     bathrooms: 4,
     description: `
@@ -123,6 +128,7 @@ const DUMMY_PROPERTIES = [
     surface: 165,
     city: 'Nice',
     offerMade: false,
+    favourite: false,
     bedrooms: 3,
     bathrooms: 2,
     description: `
@@ -146,6 +152,7 @@ const DUMMY_PROPERTIES = [
     surface: 280,
     city: 'Montpellier',
     offerMade: false,
+    favourite: false,
     bedrooms: 4,
     bathrooms: 3,
     description: `
@@ -169,6 +176,7 @@ const DUMMY_PROPERTIES = [
     surface: 520,
     city: 'Strasbourg',
     offerMade: false,
+    favourite: false,
     bedrooms: 7,
     bathrooms: 5,
     description: `
@@ -185,4 +193,4 @@ const DUMMY_PROPERTIES = [
   }
 ];
 
-module.exports = { DUMMY_PROPERTIES };
+module.exports = { DUMMY_PROPERTIES };module.exports = { DUMMY_PROPERTIES };
