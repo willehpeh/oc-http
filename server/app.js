@@ -1,5 +1,5 @@
 const express = require('express');
-const { DUMMY_PROPERTIES } = require('./data');
+const { DUMMY_PROPERTIES, DUMMY_TOKEN } = require('./data');
 const soldProperties = [DUMMY_PROPERTIES[DUMMY_PROPERTIES.length - 2].id];
 const maxOfferProperties = [DUMMY_PROPERTIES[DUMMY_PROPERTIES.length - 1].id];
 const app = express();
@@ -56,7 +56,7 @@ app.get('/api/properties/:id/check-offer-limit', (req, res) => {
 
 app.post('/api/properties/:id/favourite', (req, res) => {
   const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  if (!authHeader || authHeader !== DUMMY_TOKEN) {
     res.status(401).json({ message: 'Unauthorized' });
     return;
   }
