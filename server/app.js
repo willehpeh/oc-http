@@ -54,6 +54,21 @@ app.get('/api/properties/:id/check-offer-limit', (req, res) => {
   res.json({ id: req.params.id, offerLimitReached: maxOfferProperties.includes(req.params.id) });
 });
 
+app.post('/api/properties/:id/favourite', (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    res.status(401).json({ message: 'Unauthorized' });
+    return;
+  }
+  const found = DUMMY_PROPERTIES.find(property => property.id === req.params.id);
+  if (!found) {
+    res.status(404).json({ message: 'Property not found' });
+    return;
+  }
+  found.favourite = !found.favourite;
+  res.json({ id: req.params.id, favourite: found.favourite });
+});
+
 app.listen(3030, () => {
   console.log('Server is running on port 3030');
 });
