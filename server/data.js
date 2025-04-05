@@ -193,4 +193,4 @@ const DUMMY_PROPERTIES = [
   }
 ];
 
-module.exports = { DUMMY_PROPERTIES };module.exports = { DUMMY_PROPERTIES };
+module.exports = { DUMMY_PROPERTIES };
