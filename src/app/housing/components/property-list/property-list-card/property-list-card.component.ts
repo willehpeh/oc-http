@@ -1,6 +1,5 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { HousingPropertyPreview } from '../../../models/housing-property';
-import { Router } from '@angular/router';
 import { PropertyListCardDetailsComponent } from './property-list-card-details/property-list-card-details.component';
 import {
   PropertyListCardThumbnailComponent
@@ -19,17 +18,23 @@ import {
 			}
 			<div class="property-link">
 				<app-property-list-card-thumbnail [property]="property()"/>
-				<app-property-list-card-details [property]="property()"/>
+				<app-property-list-card-details [property]="property()" 
+                                        (favouriteToggled)="onToggleFavourite()"/>
 			</div>
 		</article>
   `,
   styleUrls: ['./property-list-card.component.scss']
 })
 export class PropertyListCardComponent {
-  private router = inject(Router);
   property = input.required<HousingPropertyPreview>();
+  cardClicked = output<{ id: string }>();
+  favouriteToggled = output<{ id: string }>();
 
   onClickCard() {
-    this.router.navigate(['/housing', this.property().id]);
+    this.cardClicked.emit({ id: this.property().id });
+  }
+
+  onToggleFavourite() {
+    this.favouriteToggled.emit({ id: this.property().id });
   }
 }

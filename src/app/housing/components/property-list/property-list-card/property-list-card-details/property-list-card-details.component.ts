@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { HousingPropertyPreview } from '../../../../models/housing-property';
 import { FavouriteButtonComponent } from './favourite-button/favourite-button.component';
@@ -12,7 +12,8 @@ import { FavouriteButtonComponent } from './favourite-button/favourite-button.co
   template: `
 		<div class="title">
 			<h2>{{ property().title }}</h2>
-      <app-favourite-button/>
+      <app-favourite-button [favourite]="property().favourite" 
+                            (toggled)="onToggleFavourite()"/>
 		</div>
 		<div class="property-details">
 			<span class="price">{{ property().price | currency: 'EUR' : 'symbol' : '4.0-0' }}</span>
@@ -60,4 +61,9 @@ import { FavouriteButtonComponent } from './favourite-button/favourite-button.co
 })
 export class PropertyListCardDetailsComponent {
   property = input.required<HousingPropertyPreview>();
+  favouriteToggled = output<void>();
+
+  onToggleFavourite() {
+    this.favouriteToggled.emit();
+  }
 }

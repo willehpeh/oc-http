@@ -66,7 +66,7 @@ app.post('/api/properties/:id/favourite', (req, res) => {
     return;
   }
   found.favourite = !found.favourite;
-  res.json({ id: req.params.id, favourite: found.favourite });
+  res.json();
 });
 
 app.listen(3030, () => {
