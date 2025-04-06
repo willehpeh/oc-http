@@ -7,7 +7,7 @@ import { HousingService } from '../../services/housing.service';
 import { filter, Observable, tap } from 'rxjs';
 import { HousingPropertyWithDetails } from '../../models/housing-property';
 import { Router } from '@angular/router';
-import { ModalService } from '../../../core/layout/services/modal.service';
+import { ModalService } from '../../../shared/modals/modal.service';
 
 @Component({
   selector: 'app-property-detail',
