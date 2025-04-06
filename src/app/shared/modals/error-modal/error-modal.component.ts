@@ -1,11 +1,9 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-error-modal',
-  imports: [
-    RouterLink
-  ],
   template: `
 		<div class="modal-overlay" id="errorModal">
 			<div class="modal">
@@ -16,7 +14,7 @@ import { RouterLink } from '@angular/router';
 					<p id="errorMessage">An error occurred while processing your request. Please try again later.</p>
 				</div>
 				<div class="modal-actions">
-					<a routerLink="/housing" class="modal-button primary">Return to Properties</a>
+					<a class="modal-button primary" (click)="onClose()">Return to Properties</a>
 				</div>
 			</div>
 		</div>
@@ -78,5 +76,11 @@ import { RouterLink } from '@angular/router';
   `
 })
 export class ErrorModalComponent {
+  private modalService = inject(ModalService);
+  private router = inject(Router);
 
+  onClose() {
+    this.modalService.toggleErrorModal();
+    this.router.navigate(['/housing']);
+  }
 }
