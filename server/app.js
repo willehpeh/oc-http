@@ -56,7 +56,7 @@ app.get('/api/properties/:id/check-offer-limit', (req, res) => {
 
 app.post('/api/properties/:id/favourite', (req, res) => {
   const authHeader = req.headers.authorization;
-  if (!authHeader || authHeader !== DUMMY_TOKEN) {
+  if (!authHeader || authHeader !== `Bearer ${ DUMMY_TOKEN }`) {
     res.status(401).json({ message: 'Unauthorized' });
     return;
   }
