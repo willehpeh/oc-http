@@ -3,7 +3,10 @@ import { Observable } from 'rxjs';
 import { TokenService } from './token.service';
 import { inject } from '@angular/core';
 
-export const tokenInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> => {
+export const tokenInterceptor: HttpInterceptorFn = (
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<unknown>> => {
   const tokenService = inject(TokenService);
   const authReq = req.clone({
     setHeaders: {
