@@ -7,10 +7,11 @@ import {
 import {
   OfferSubmittedModalComponent
 } from './shared/modals/offer-submitted-modal/offer-submitted-modal.component';
-import { ModalService } from './core/layout/services/modal.service';
+import { ModalService } from './shared/modals/modal.service';
 import {
   PropertySoldModalComponent
 } from './shared/modals/property-sold-modal/property-sold-modal.component';
+import { ErrorModalComponent } from './shared/modals/error-modal/error-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ import {
     HeaderComponent,
     OfferLimitReachedModalComponent,
     OfferSubmittedModalComponent,
-    PropertySoldModalComponent
+    PropertySoldModalComponent,
+    ErrorModalComponent
   ],
   template: `
 		<app-header/>
@@ -33,6 +35,9 @@ import {
 		@if (soldModalVisible()) {
 			<app-property-sold-modal/>
 		}
+    @if (errorModalVisible()) {
+      <app-error-modal/>
+    }
   `,
   styles: [],
 })
@@ -41,4 +46,5 @@ export class AppComponent {
   offerLimitReachedModalVisible = this.modalService.offerLimitReachedModalVisible;
   offerSubmittedModalVisible = this.modalService.offerSubmittedModalVisible;
   soldModalVisible = this.modalService.soldModalVisible;
+  errorModalVisible = this.modalService.errorModalVisible;
 }

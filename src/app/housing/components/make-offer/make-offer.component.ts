@@ -3,7 +3,7 @@ import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { HousingService } from '../../services/housing.service';
 import { delay, filter, Observable, switchMap, tap } from 'rxjs';
 import { HousingPropertyWithDetails } from '../../models/housing-property';
-import { ModalService } from '../../../core/layout/services/modal.service';
+import { ModalService } from '../../../shared/modals/modal.service';
 import { MakeOfferFormComponent, OfferFormValue } from './make-offer-form/make-offer-form.component';
 import { Router } from '@angular/router';
 

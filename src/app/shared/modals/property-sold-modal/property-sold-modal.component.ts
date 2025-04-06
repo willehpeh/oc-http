@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalService } from '../../../core/layout/services/modal.service';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-property-sold-modal',
