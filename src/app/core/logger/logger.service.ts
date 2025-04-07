@@ -1,19 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpResponse } from '@angular/common/http';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class LoggerService {
 
   private _events: HttpEvent<unknown>[] = [];
   private _errors: HttpErrorResponse[] = [];
 
   log(event: HttpResponse<unknown>): void {
-    this._events.push(event);
+    if (this._events.length === 10) {
+      this._events.pop();
+    }
+    this._events.unshift(event);
     console.table(this._events);
   }
 
   logError(error: HttpErrorResponse): void {
-    this._errors.push(error);
+    if (this._errors.length === 10) {
+      this._errors.pop();
+    }
+    this._errors.unshift(error);
     console.table(this._errors);
   }
 }
