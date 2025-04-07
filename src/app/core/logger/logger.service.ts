@@ -14,6 +14,7 @@ export class LoggerService {
       this._events.pop();
     }
     this._events.unshift(event);
+    console.log('%cEvents', 'color: blue; font-size: 24px; font-weight: bold;');
     console.table(this._events);
   }
 
@@ -22,6 +23,7 @@ export class LoggerService {
       this._errors.pop();
     }
     this._errors.unshift(error);
+    console.log('%cErrors', 'color: red; font-size: 24px; font-weight: bold;');
     console.table(this._errors);
   }
 }
