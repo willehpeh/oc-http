@@ -48,54 +48,6 @@
   color: var(--on-surface);
 }
 
-.offer-form {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-group label {
-  color: var(--on-surface);
-  font-size: 0.9rem;
-}
-
-.form-group input,
-.form-group textarea {
-  padding: 0.75rem;
-  background-color: var(--surface);
-  border: 1px solid var(--surface-light);
-  border-radius: 6px;
-  color: var(--on-background);
-  font-size: 1rem;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--primary);
-}
-
-.submit-button {
-  background-color: var(--primary);
-  color: var(--background);
-  border: none;
-  padding: 1rem;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
-}
-
-.submit-button:hover {
-  opacity: 0.9;
-}
-
 /* Success Modal Styles */
 .success-modal {
   text-align: center;

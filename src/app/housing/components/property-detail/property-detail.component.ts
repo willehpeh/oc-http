@@ -1,28 +1,31 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { PropertyFeaturesComponent } from './property-features/property-features.component';
 import { PropertySpecsComponent } from './property-specs/property-specs.component';
-import { Router } from '@angular/router';
-import { ModalService } from '../../../layout/services/modal.service';
-import { tap } from 'rxjs';
 import { BackButtonComponent } from '../back-button/back-button.component';
 import { HousingService } from '../../services/housing.service';
+import { filter, Observable, tap } from 'rxjs';
+import { HousingPropertyWithDetails } from '../../models/housing-property';
+import { Router } from '@angular/router';
+import { ModalService } from '../../../shared/modals/modal.service';
 
 @Component({
   selector: 'app-property-detail',
   imports: [
-    AsyncPipe,
     CurrencyPipe,
     PropertyFeaturesComponent,
     PropertySpecsComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    AsyncPipe,
   ],
   template: `
-		@if (housingProperty() | async; as property) {
+		@if (property$ | async; as property) {
 			<main class="property-details">
 				<div class="property-hero">
-          <app-back-button backDestination="/housing"/>
-					<div class="offer-made-banner">Offer Made</div>
+					<app-back-button backDestination="/housing"/>
+					@if (property.offerMade) {
+						<div class="offer-made-banner">Offer Made</div>
+					}
 					<img [src]="property.thumbnailUrl" [alt]="property.title" class="property-hero-image">
 				</div>
 
@@ -42,22 +45,27 @@ import { HousingService } from '../../services/housing.service';
   `,
   styleUrls: ['./property-detail.component.scss'],
 })
-export class PropertyDetailComponent {
+export class PropertyDetailComponent implements OnInit {
   private housingService = inject(HousingService);
-  private modalService = inject(ModalService);
   private router = inject(Router);
-  id = input.required<string>();
-  housingProperty = computed(() => this.housingService.getHousingProperty(this.id()));
+  private modalService = inject(ModalService);
+
+  @Input() id!: string;
+  property$!: Observable<HousingPropertyWithDetails>;
+
+  ngOnInit() {
+    this.property$ = this.housingService.getPropertyById(this.id);
+  }
 
   onMakeOffer() {
-    this.housingService.propertyAlreadySold(this.id()).pipe(
+    this.housingService.checkIfPropertySold(this.id).pipe(
       tap(sold => {
-        if (sold)  {
+        if (sold) {
           this.modalService.toggleSoldModal();
-          return;
         }
-        this.router.navigate(['housing', this.id(), 'make-offer']);
-      })
+      }),
+      filter(sold => !sold),
+      tap(() => this.router.navigate(['housing', this.id, 'make-offer']))
     ).subscribe();
   }
 }

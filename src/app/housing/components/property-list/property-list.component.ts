@@ -1,22 +1,27 @@
 import { Component, inject } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 import { PropertyListCardComponent } from './property-list-card/property-list-card.component';
 import { HousingService } from '../../services/housing.service';
+import { AsyncPipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { startWith, Subject, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-property-list',
   imports: [
-    AsyncPipe,
-    PropertyListCardComponent
+    PropertyListCardComponent,
+    AsyncPipe
   ],
   template: `
+    @let properties = properties$ | async;
 		<main class="property-list">
 			<div class="property-grid">
-				@for (preview of housingPropertyPreviews$ | async; track preview.id) {
-          <app-property-list-card [property]="preview"/>
+				@for (property of properties; track property.id) {
+					<app-property-list-card [property]="property"
+                                  (cardClicked)="onCardClicked($event)" 
+                                  (favouriteToggled)="onFavouriteToggled($event)"/>
 				}
-      </div>
-    </main>
+			</div>
+		</main>
   `,
   styles: `
     .property-grid {
@@ -28,5 +33,24 @@ import { HousingService } from '../../services/housing.service';
 })
 export class PropertyListComponent {
   private housingService = inject(HousingService);
-  housingPropertyPreviews$ = this.housingService.getHousingPropertiesList();
+  private router = inject(Router);
+  private refresh$ = new Subject<number>();
+  properties$ = this.refresh$.pipe(
+    startWith(Date.now()),
+    switchMap(() => this.housingService.getAllProperties()),
+  );
+
+  onCardClicked(property: { id: string }) {
+    this.router.navigate(['/housing', property.id]);
+  }
+
+  onFavouriteToggled(property: { id: string }) {
+    this.housingService.toggleFavourite(property.id).pipe(
+      tap(() => this.refreshProperties())
+    ).subscribe();
+  }
+
+  private refreshProperties() {
+    this.refresh$.next(Date.now());
+  }
 }

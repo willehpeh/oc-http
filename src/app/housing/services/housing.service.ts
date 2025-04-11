@@ -1,50 +1,39 @@
-import { Injectable } from '@angular/core';
-import { map, Observable, of, tap } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { HousingPropertyPreview, HousingPropertyWithDetails } from '../models/housing-property';
-import { DUMMY_PROPERTIES } from '../test-data/DUMMY_PROPERTIES';
+import { map, Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HousingService {
+  private http = inject(HttpClient);
 
-  private _properties: HousingPropertyWithDetails[] = [...DUMMY_PROPERTIES];
-  private readonly _soldProperties: string[] = [];
-  private readonly _maxOfferProperties: string[] = [];
-
-  constructor() {
-    this._soldProperties.push(this._properties[this._properties.length - 2].id);
-    this._maxOfferProperties.push(this._properties[this._properties.length - 1].id);
+  getAllProperties() {
+    return this.http.get<HousingPropertyPreview[]>('http://localhost:3030/api/properties');
   }
 
-  getHousingPropertiesList(): Observable<HousingPropertyPreview[]> {
-    return of(this._properties);
+  getPropertyById(id: string) {
+    return this.http.get<HousingPropertyWithDetails>(`http://localhost:3030/api/properties/${id}`);
   }
 
-  getHousingProperty(id: string): Observable<HousingPropertyWithDetails> {
-    const found = this._properties.find(property => property.id === id);
-    if (!found) {
-      throw new Error(`Property with id ${id} not found`);
-    }
-    return of(found);
-  }
-
-  makeOffer(id: string): Observable<{ id: string, message: string }> {
-    return of(undefined).pipe(
-      tap(() => {
-        const found = this._properties.find(property => property.id === id);
-        if (!found) {
-          throw new Error(`Property with id ${id} not found`);
-        }
-        found.offerMade = true;
-      }),
-      map(() => ({ id, message: 'Offer made successfully' }))
+  checkIfOfferLimitReached(id: string): Observable<boolean> {
+    return this.http.get<{ id: string, offerLimitReached: boolean }>(`http://localhost:3030/api/properties/${id}/check-offer-limit`).pipe(
+      map(response => response.offerLimitReached)
     );
   }
 
-  offerLimitReached(id: string): Observable<boolean> {
-    return of(this._maxOfferProperties.includes(id));
+  makeOffer(id: string, amount: number) {
+    return this.http.post(`http://localhost:3030/api/properties/${id}/make-offer`, { amount });
   }
 
-  propertyAlreadySold(id: string): Observable<boolean> {
-    return of(this._soldProperties.includes(id));
+  checkIfPropertySold(id: string): Observable<boolean> {
+    return this.http.get<{ id: string, sold: boolean }>(`http://localhost:3030/api/properties/${id}/sold`).pipe(
+      map(response => response.sold)
+    );
+  }
+
+  toggleFavourite(id: string): Observable<void> {
+    return this.http.post<void>(`http://localhost:3030/api/properties/${id}/favourite`, {});
   }
 }

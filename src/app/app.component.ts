@@ -1,23 +1,31 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './layout/header/header.component';
+import { HeaderComponent } from './core/layout/header/header.component';
 import {
   OfferLimitReachedModalComponent
-} from './housing/components/make-offer/offer-limit-reached-modal/offer-limit-reached-modal.component';
+} from './shared/modals/offer-limit-reached-modal/offer-limit-reached-modal.component';
 import {
   OfferSubmittedModalComponent
-} from './housing/components/make-offer/offer-submitted-modal/offer-submitted-modal.component';
-import { ModalService } from './layout/services/modal.service';
+} from './shared/modals/offer-submitted-modal/offer-submitted-modal.component';
+import { ModalService } from './shared/modals/modal.service';
 import {
   PropertySoldModalComponent
-} from './housing/components/property-detail/property-sold-modal/property-sold-modal.component';
+} from './shared/modals/property-sold-modal/property-sold-modal.component';
+import { ErrorModalComponent } from './shared/modals/error-modal/error-modal.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, OfferLimitReachedModalComponent, OfferSubmittedModalComponent, PropertySoldModalComponent],
+  imports: [
+    RouterOutlet,
+    HeaderComponent,
+    OfferLimitReachedModalComponent,
+    OfferSubmittedModalComponent,
+    PropertySoldModalComponent,
+    ErrorModalComponent
+  ],
   template: `
-    <app-header/>
-    <router-outlet />
+		<app-header/>
+		<router-outlet/>
 		@if (offerLimitReachedModalVisible()) {
 			<app-offer-limit-reached-modal/>
 		}
@@ -27,6 +35,9 @@ import {
 		@if (soldModalVisible()) {
 			<app-property-sold-modal/>
 		}
+    @if (errorModalVisible()) {
+      <app-error-modal/>
+    }
   `,
   styles: [],
 })
@@ -35,4 +46,5 @@ export class AppComponent {
   offerLimitReachedModalVisible = this.modalService.offerLimitReachedModalVisible;
   offerSubmittedModalVisible = this.modalService.offerSubmittedModalVisible;
   soldModalVisible = this.modalService.soldModalVisible;
+  errorModalVisible = this.modalService.errorModalVisible;
 }
